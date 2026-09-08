@@ -322,12 +322,13 @@
       const btn      = document.getElementById('audioBtn');
       const icon     = document.getElementById('audioIcon');
       const progress = document.getElementById('audioProgressBar');
+      const player   = document.getElementById('audioPlayer');
 
       function setIcon(playing) {
         icon.className = playing ? 'fa-solid fa-pause' : 'fa-solid fa-volume-high';
       }
 
-      // Actualiza la barra de progreso
+      // Barra de progreso
       audio.addEventListener('timeupdate', function () {
         if (!audio.duration) return;
         progress.style.width = (audio.currentTime / audio.duration * 100) + '%';
@@ -349,18 +350,36 @@
         }
       });
 
-      // Autoplay al cargar (los navegadores requieren interacción previa;
-      // intentamos igual y si falla por política, el botón queda listo)
-      window.addEventListener('load', function () {
-        const promise = audio.play();
-        if (promise !== undefined) {
-          promise.then(function () {
-            setIcon(true);
-          }).catch(function () {
-            setIcon(false); // el usuario deberá presionar el botón
+      // Intento directo al cargar
+      function tryAutoplay() {
+        audio.play().then(function () {
+          setIcon(true);
+          player.classList.remove('audio-waiting');
+        }).catch(function () {
+          // Bloqueado por el navegador: esperar primera interacción
+          player.classList.add('audio-waiting');
+          setIcon(false);
+          var events = ['click', 'keydown', 'touchstart', 'scroll'];
+          function onInteraction() {
+            audio.play().then(function () {
+              setIcon(true);
+              player.classList.remove('audio-waiting');
+            }).catch(function () {});
+            events.forEach(function (e) {
+              document.removeEventListener(e, onInteraction);
+            });
+          }
+          events.forEach(function (e) {
+            document.addEventListener(e, onInteraction, { once: true, passive: true });
           });
-        }
-      });
+        });
+      }
+
+      if (document.readyState === 'complete') {
+        tryAutoplay();
+      } else {
+        window.addEventListener('load', tryAutoplay);
+      }
     })();
   </script>
 </body>
