@@ -24,37 +24,37 @@
     <nav class="sidebar-nav">
       <ul>
         <li class="nav-item active" data-section="inicio">
-          <a href="#inicio"><i class="fas fa-home"></i><span>Inicio</span></a>
+          <a href="#inicio"><span>Inicio</span></a>
         </li>
         <li class="nav-item" data-section="estrategia">
-          <a href="#estrategia"><i class="fas fa-chess"></i><span>Estrategia</span></a>
+          <a href="#estrategia"><span>Estrategia</span></a>
         </li>
         <li class="nav-item" data-section="organizacion">
-          <a href="#organizacion"><i class="fas fa-sitemap"></i><span>Organización</span></a>
+          <a href="#organizacion"><span>Organización</span></a>
         </li>
         <li class="nav-item" data-section="politicas">
-          <a href="#politicas"><i class="fas fa-file-shield"></i><span>Políticas Corporativas</span></a>
+          <a href="#politicas"><span>Políticas Corporativas</span></a>
         </li>
         <li class="nav-item" data-section="consultoria">
-          <a href="#consultoria"><i class="fas fa-briefcase"></i><span>Consultoría</span></a>
+          <a href="#consultoria"><span>Consultoría</span></a>
         </li>
         <li class="nav-item" data-section="soluciones">
-          <a href="#soluciones"><i class="fas fa-shield-halved"></i><span>Soluciones</span></a>
+          <a href="#soluciones"><span>Soluciones</span></a>
         </li>
         <li class="nav-item" data-section="propuesta">
-          <a href="#propuesta"><i class="fas fa-star"></i><span>Propuesta de valor</span></a>
+          <a href="#propuesta"><span>Propuesta de valor</span></a>
         </li>
         <li class="nav-item" data-section="rse">
-          <a href="#rse"><i class="fas fa-leaf"></i><span>RSE</span></a>
+          <a href="#rse"><span>RSE</span></a>
         </li>
         <li class="nav-item" data-section="informacion">
-          <a href="#informacion"><i class="fas fa-circle-info"></i><span>Información</span></a>
+          <a href="#informacion"><span>Información</span></a>
         </li>
         <li class="nav-item" data-section="videos">
-          <a href="#videos"><i class="fas fa-play-circle"></i><span>Vídeos</span></a>
+          <a href="#videos"><span>Vídeos</span></a>
         </li>
         <li class="nav-item" data-section="contacto">
-          <a href="#contacto"><i class="fas fa-envelope"></i><span>Contáctenos</span></a>
+          <a href="#contacto"><span>Contáctenos</span></a>
         </li>
       </ul>
     </nav>
@@ -63,9 +63,6 @@
       <span>© 2026 RISKCOM</span>
     </div>
 
-    <button class="sidebar-toggle" id="sidebarToggle" aria-label="Colapsar menú">
-      <i class="fas fa-chevron-left" id="toggleIcon"></i>
-    </button>
   </aside>
 
   <!-- Backdrop para móvil -->
@@ -82,10 +79,11 @@
   <main class="sections-wrapper" id="sectionsWrapper">
 
     <!-- ── INICIO ─────────────────────────────── -->
-    <section class="fs-section" id="inicio">
-      <!-- Slot para video de fondo -->
+    <section class="fs-section has-video" id="inicio">
       <div class="fs-video-bg" id="video-inicio">
-        <!-- <video autoplay muted loop playsinline src="assets/videos/inicio.mp4"></video> -->
+        <video autoplay muted loop playsinline>
+          <source src="assets/Videos/Inicio.mp4" type="video/mp4" />
+        </video>
       </div>
       <div class="fs-overlay"></div>
       <div class="fs-content">

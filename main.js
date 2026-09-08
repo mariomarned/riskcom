@@ -6,43 +6,11 @@
   'use strict';
 
   // ── Elements ──────────────────────────────────────────────
-  const sidebar        = document.getElementById('sidebar');
+  const sidebar         = document.getElementById('sidebar');
   const sectionsWrapper = document.getElementById('sectionsWrapper');
-  const toggleBtn      = document.getElementById('sidebarToggle');
-  const toggleIcon     = document.getElementById('toggleIcon');
-  const mobileMenuBtn  = document.getElementById('mobileMenuBtn');
-  const backdrop       = document.getElementById('sidebarBackdrop');
-  const navItems       = document.querySelectorAll('.nav-item');
-
-  // ── Sidebar collapse (desktop) ────────────────────────────
-  let isCollapsed = false;
-
-  function collapseSidebar() {
-    isCollapsed = true;
-    sidebar.classList.add('collapsed');
-    sectionsWrapper.classList.add('expanded');
-    toggleIcon.className = 'fas fa-chevron-right';
-    localStorage.setItem('sidebarCollapsed', 'true');
-  }
-
-  function expandSidebar() {
-    isCollapsed = false;
-    sidebar.classList.remove('collapsed');
-    sectionsWrapper.classList.remove('expanded');
-    toggleIcon.className = 'fas fa-chevron-left';
-    localStorage.setItem('sidebarCollapsed', 'false');
-  }
-
-  if (toggleBtn) {
-    toggleBtn.addEventListener('click', () => {
-      isCollapsed ? expandSidebar() : collapseSidebar();
-    });
-  }
-
-  // Restaurar preferencia guardada
-  if (localStorage.getItem('sidebarCollapsed') === 'true') {
-    collapseSidebar();
-  }
+  const mobileMenuBtn   = document.getElementById('mobileMenuBtn');
+  const backdrop        = document.getElementById('sidebarBackdrop');
+  const navItems        = document.querySelectorAll('.nav-item');
 
   // ── Mobile sidebar ─────────────────────────────────────────
   function openMobileSidebar() {
