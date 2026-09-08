@@ -93,6 +93,20 @@
           <a href="#soluciones" class="btn-primary">Nuestros Servicios</a>
           <a href="#contacto" class="btn-secondary">Contáctenos</a>
         </div>
+        <!-- Audio presentación -->
+        <div class="audio-player" id="audioPlayer">
+          <audio id="introAudio" src="assets/Audios/Inicio.m4a" preload="auto"></audio>
+          <button class="audio-btn" id="audioBtn" aria-label="Reproducir audio de presentación">
+            <i class="fa-solid fa-volume-high" id="audioIcon"></i>
+          </button>
+          <div class="audio-info">
+            <span class="audio-label">Presentación RISKCOM</span>
+            <div class="audio-progress-wrap">
+              <div class="audio-progress-bar" id="audioProgressBar"></div>
+            </div>
+          </div>
+        </div>
+
         <div class="fs-stats">
           <!-- <div class="stat"><span class="stat-number">+500</span><span class="stat-label">Clientes</span></div>
           <div class="stat-divider"></div> -->
@@ -112,7 +126,7 @@
         <h2 class="fs-title">Quiénes Somos</h2>
         <div class="about-content">
           <div class="about-text">
-            <p><strong></strong>Riskcom</strong> es una solución alterna a los servicios de vigilancia y seguridad privada que busca cubrir mayores tareas en la <strong>gestión de los riesgos del comercio</strong>. Proporcionamos a las organizaciones del comercio las mejores soluciones y estrategias de <strong>gestión de riesgos, crisis y continuidad</strong> para resguardar sus operaciones comerciales, enfocados en la integridad de personas, activos, reputación y gestión de pérdidas.</p>
+            <p><strong>Riskcom</strong> es una solución alterna a los servicios de vigilancia y seguridad privada que busca cubrir mayores tareas en la <strong>gestión de los riesgos del comercio</strong>. Proporcionamos a las organizaciones del comercio las mejores soluciones y estrategias de <strong>gestión de riesgos, crisis y continuidad</strong> para resguardar sus operaciones comerciales, enfocados en la integridad de personas, activos, reputación y gestión de pérdidas.</p>
 
             <p>Estas prácticas buscan optimizar sus procesos entregando un <strong>balance financiero vs. pérdidas y riesgos</strong>.</p>
 
@@ -301,5 +315,53 @@
   </main>
 
   <script src="main.js"></script>
+  <script>
+    /* ── Audio de inicio ── */
+    (function () {
+      const audio    = document.getElementById('introAudio');
+      const btn      = document.getElementById('audioBtn');
+      const icon     = document.getElementById('audioIcon');
+      const progress = document.getElementById('audioProgressBar');
+
+      function setIcon(playing) {
+        icon.className = playing ? 'fa-solid fa-pause' : 'fa-solid fa-volume-high';
+      }
+
+      // Actualiza la barra de progreso
+      audio.addEventListener('timeupdate', function () {
+        if (!audio.duration) return;
+        progress.style.width = (audio.currentTime / audio.duration * 100) + '%';
+      });
+
+      audio.addEventListener('ended', function () {
+        setIcon(false);
+        progress.style.width = '0%';
+      });
+
+      // Botón play/pause
+      btn.addEventListener('click', function () {
+        if (audio.paused) {
+          audio.play();
+          setIcon(true);
+        } else {
+          audio.pause();
+          setIcon(false);
+        }
+      });
+
+      // Autoplay al cargar (los navegadores requieren interacción previa;
+      // intentamos igual y si falla por política, el botón queda listo)
+      window.addEventListener('load', function () {
+        const promise = audio.play();
+        if (promise !== undefined) {
+          promise.then(function () {
+            setIcon(true);
+          }).catch(function () {
+            setIcon(false); // el usuario deberá presionar el botón
+          });
+        }
+      });
+    })();
+  </script>
 </body>
 </html>
