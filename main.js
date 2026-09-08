@@ -40,6 +40,17 @@
   // ── Active nav on scroll (Intersection Observer) ───────────
   const sections = document.querySelectorAll('.fs-section[id]');
 
+  const sectionLabels = {
+    'inicio':          'Inicio',
+    'quienes-somos':   'Quiénes Somos',
+    'soluciones':      'Soluciones',
+    'propuesta':       'Propuesta de Valor',
+    'rse':             'RSE',
+    'informacion':     'Información',
+    'videos':          'Videos',
+    'contacto':        'Contáctenos',
+  };
+
   const sectionObserver = new IntersectionObserver(
     (entries) => {
       entries.forEach(entry => {
