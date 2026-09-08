@@ -266,6 +266,14 @@ img { display: block; max-width: 100%; }
   height: 100%;
   object-fit: cover;
   object-position: center;
+  /* Aparece con fade-in para evitar parpadeo al cargar */
+  opacity: 0;
+  transition: opacity 1.2s ease;
+}
+
+/* Una vez el video está reproduciéndose, se hace visible */
+.fs-video-bg video.playing {
+  opacity: 1;
 }
 
 /* ── Overlay oscuro sobre el video ── */
@@ -819,7 +827,7 @@ img { display: block; max-width: 100%; }
 }
 
 /* ============================================================
-   RESPONSIVE — TABLET
+   RESPONSIVE — TABLET  (≤ 1024px)
    ============================================================ */
 @media (max-width: 1024px) {
   .fs-content {
@@ -843,40 +851,123 @@ img { display: block; max-width: 100%; }
 }
 
 /* ============================================================
-   RESPONSIVE — MOBILE
+   RESPONSIVE — MOBILE  (≤ 768px)
    ============================================================ */
 @media (max-width: 768px) {
+
+  /* Sidebar: oculto por defecto, desliza desde la izquierda */
   .sidebar {
     transform: translateX(-100%);
-    width: 240px;
+    width: 260px;
     transition: transform var(--transition);
+    z-index: 300;
   }
 
   .sidebar.mobile-open {
     transform: translateX(0);
+    box-shadow: var(--shadow-lg);
   }
 
-  .sidebar-toggle { display: none; }
-
+  /* El wrapper ocupa todo el ancho */
   .sections-wrapper {
     margin-left: 0 !important;
   }
 
-  .mobile-menu-btn { display: flex; }
-
-  .fs-content {
-    padding: 80px 24px 48px;
+  /* Botón hamburguesa visible */
+  .mobile-menu-btn {
+    display: flex;
+    top: 12px;
+    left: 12px;
+    z-index: 298;
   }
 
-  .fs-title { font-size: clamp(26px, 7vw, 38px); }
+  /* Secciones full-screen */
+  .fs-section {
+    min-height: 100svh; /* svh = small viewport height, evita el salto del browser bar */
+  }
 
-  .fs-stats { gap: 0; }
-  .stat { padding: 0 20px 0 0; }
-  .stat-divider { margin: 0 20px 0 0; }
+  /* Contenido: espacio arriba para el botón hamburguesa */
+  .fs-content {
+    padding: 72px 20px 40px;
+  }
 
-  .fs-cta { flex-direction: column; }
-  .btn-primary, .btn-secondary { text-align: center; justify-content: center; }
+  /* Tipografía */
+  .fs-title    { font-size: clamp(24px, 8vw, 36px); }
+  .fs-subtitle { font-size: clamp(13px, 4vw, 17px); }
+  .fs-body     { font-size: 14px; line-height: 1.75; }
 
-  .services-grid { grid-template-columns: 1fr; }
-  .form-row { grid-template-columns: 1fr; }
+  /* Estadísticas: en fila compacta */
+  .fs-stats {
+    gap: 0;
+    flex-wrap: wrap;
+    row-gap: 16px;
+    padding-top: 24px;
+  }
+  .stat         { padding: 0 20px 0 0; }
+  .stat-number  { font-size: 24px; }
+  .stat-divider { margin: 0 20px 0 0; height: 32px; }
+
+  /* CTAs: columna */
+  .fs-cta {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .btn-primary,
+  .btn-secondary {
+    width: 100%;
+    justify-content: center;
+    padding: 13px 20px;
+    font-size: 14px;
+  }
+
+  /* Cards: una columna */
+  .cards-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .card { padding: 22px 18px; }
+
+  /* About: simplificado */
+  .about-content   { gap: 28px; }
+  .about-visual    { flex-direction: column; }
+  .visual-card     { min-width: unset; }
+
+  /* Servicios: una columna */
+  .services-grid   { grid-template-columns: 1fr; }
+  .service-item    { padding: 24px 20px; }
+
+  /* Formulario */
+  .form-row        { grid-template-columns: 1fr; }
+  .form-group input,
+  .form-group textarea {
+    font-size: 16px; /* evita zoom automático en iOS */
+  }
+
+  /* Videos en móvil: ocultar controles pero permitir reproducción */
+  .fs-video-bg video {
+    pointer-events: none;
+  }
+
+  /* Placeholder: más compacto */
+  .placeholder-content { padding: 40px 20px; }
+  .placeholder-icon    { font-size: 36px; }
+
+  /* Sección badge */
+  .section-badge { font-size: 10px; }
+
+  /* Footer */
+  .footer { padding: 24px 0 0; margin-top: 36px; }
+  .footer-tagline { font-size: 11px; }
+}
+
+/* ============================================================
+   RESPONSIVE — MÓVIL PEQUEÑO  (≤ 390px)
+   ============================================================ */
+@media (max-width: 390px) {
+  .fs-content  { padding: 68px 16px 36px; }
+  .fs-title    { font-size: clamp(22px, 9vw, 30px); }
+  .stat        { padding: 0 14px 0 0; }
+  .stat-divider{ margin: 0 14px 0 0; }
+  .sidebar     { width: 240px; }
 }

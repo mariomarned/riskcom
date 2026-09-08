@@ -66,7 +66,66 @@
     });
   });
 
-  // ── Fade-in animations ─────────────────────────────────────
+  // ── Lazy loading de videos ─────────────────────────────────
+  // Busca todos los .fs-video-bg que tengan data-video definido
+  const videoBgs = document.querySelectorAll('.fs-video-bg[data-video]');
+
+  const videoLoader = new IntersectionObserver(
+    (entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+
+        const container = entry.target;
+        const src = container.dataset.video;
+
+        // Evitar cargar dos veces
+        if (container.dataset.loaded) return;
+        container.dataset.loaded = 'true';
+
+        // Crear el elemento video dinámicamente
+        const video = document.createElement('video');
+        video.autoplay    = true;
+        video.muted       = true;
+        video.loop        = true;
+        video.playsInline = true;
+        video.setAttribute('aria-hidden', 'true');
+
+        const source = document.createElement('source');
+        source.src  = src;
+        source.type = 'video/mp4';
+        video.appendChild(source);
+
+        // Añadir al DOM — el CSS lo hace aparecer con fade
+        container.appendChild(video);
+
+        // Marcar la sección padre con has-video para ajustar el overlay
+        const section = container.closest('.fs-section');
+        if (section) section.classList.add('has-video');
+
+        // Intentar reproducir (algunos browsers bloquean autoplay)
+        video.play().catch(() => {
+          // Si el browser bloquea autoplay, se queda el fondo oscuro — sin error visible
+        });
+
+        // Cuando el video empieza a reproducirse, aplicar fade-in suave
+        video.addEventListener('playing', () => {
+          video.classList.add('playing');
+        }, { once: true });
+
+        // Fallback: si canplay dispara pero playing no (algunos móviles)
+        video.addEventListener('canplay', () => {
+          setTimeout(() => video.classList.add('playing'), 100);
+        }, { once: true });
+      });
+    },
+    {
+      // Empieza a cargar cuando la sección anterior está a 100px de terminar
+      rootMargin: '0px 0px -10% 0px',
+      threshold: 0.1
+    }
+  );
+
+  videoBgs.forEach(bg => videoLoader.observe(bg));
   const fadeTargets = document.querySelectorAll(
     '.card, .service-item, .visual-card, .contact-item, .stat, .placeholder-content'
   );
