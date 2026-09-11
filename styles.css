@@ -341,7 +341,7 @@ img { display: block; max-width: 100%; }
   display: flex;
   gap: 14px;
   flex-wrap: wrap;
-  margin-bottom: 52px;
+  margin-bottom: 40px;
 }
 
 /* Palabras clave destacadas */
@@ -363,29 +363,78 @@ img { display: block; max-width: 100%; }
   padding: 5px 14px;
   border-radius: 20px;
 }
+
+/* ── Logo de Marca en Inicio ── */
+.hero-brand {
+  margin-bottom: 18px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.hero-logo {
+  max-width: 250px;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 14px rgba(0, 0, 0, 0.55));
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.hero-logo:hover {
+  transform: translateY(-2px);
+  filter: drop-shadow(0 6px 20px rgba(200, 169, 110, 0.35));
+}
+
+/* ── Barra superior de Sección (Badge + Audio) ── */
+.section-header-top,
+.inicio-header-top {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.section-header-top .section-badge,
+.inicio-header-top .section-badge {
+  margin-bottom: 0;
+}
+
+.section-header-top .audio-player,
+.inicio-header-top .audio-player {
+  margin-top: 0;
+}
+
 /* ── Audio Player ── */
 .audio-player {
   display: flex;
   align-items: center;
-  gap: 14px;
-  margin-top: 28px;
+  gap: 12px;
+  margin-top: 0;
   background: rgba(255, 255, 255, 0.07);
   border: 1px solid rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   border-radius: 50px;
-  padding: 10px 20px 10px 10px;
+  padding: 6px 18px 6px 6px;
   width: fit-content;
   max-width: 320px;
+  transition: background 0.25s ease, border-color 0.25s ease;
+}
+
+.audio-player:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(200, 169, 110, 0.4);
 }
 
 .audio-btn {
-  width: 40px;
-  height: 40px;
+  width: 38px;
+  height: 38px;
   border-radius: 50%;
   border: none;
   background: var(--accent, #c8a96e);
   color: #fff;
-  font-size: 15px;
+  font-size: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -395,7 +444,7 @@ img { display: block; max-width: 100%; }
 }
 
 .audio-btn:hover {
-  transform: scale(1.1);
+  transform: scale(1.08);
   background: var(--accent-hover, #b8964f);
 }
 
@@ -1016,6 +1065,20 @@ img { display: block; max-width: 100%; }
   /* Contenido: espacio arriba para el botón hamburguesa */
   .fs-content {
     padding: 72px 20px 40px;
+  }
+
+  .hero-brand {
+    margin-bottom: 14px;
+  }
+
+  .hero-logo {
+    max-width: 195px;
+  }
+
+  .section-header-top,
+  .inicio-header-top {
+    gap: 12px;
+    margin-bottom: 16px;
   }
 
   /* Tipografía */

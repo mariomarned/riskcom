@@ -75,7 +75,25 @@
       </div>
       <div class="fs-overlay"></div>
       <div class="fs-content">
-        <div class="section-badge">Bienvenidos</div>
+        <div class="hero-brand">
+          <img src="assets/logo/RKM4.png" alt="RISKCOM - Gestión de Riesgos, Crisis y Continuidad" class="hero-logo" />
+        </div>
+        <div class="inicio-header-top">
+          <div class="section-badge">Bienvenidos</div>
+          <!-- Audio presentación -->
+          <div class="audio-player" id="audioPlayer">
+            <audio id="introAudio" src="assets/Audios/Inicio.m4a" preload="auto"></audio>
+            <button class="audio-btn" id="audioBtn" aria-label="Reproducir audio de presentación">
+              <i class="fa-solid fa-volume-high" id="audioIcon"></i>
+            </button>
+            <div class="audio-info">
+              <span class="audio-label">Presentación RISKCOM</span>
+              <div class="audio-progress-wrap">
+                <div class="audio-progress-bar" id="audioProgressBar"></div>
+              </div>
+            </div>
+          </div>
+        </div>
         <h1 class="fs-title">
           Gestión de Riesgos, Crisis<br>y Continuidad
         </h1>
@@ -93,19 +111,6 @@
           <a href="#soluciones" class="btn-primary">Nuestros Servicios</a>
           <a href="#contacto" class="btn-secondary">Contáctenos</a>
         </div>
-        <!-- Audio presentación -->
-        <div class="audio-player" id="audioPlayer">
-          <audio id="introAudio" src="assets/Audios/Inicio.m4a" preload="auto"></audio>
-          <button class="audio-btn" id="audioBtn" aria-label="Reproducir audio de presentación">
-            <i class="fa-solid fa-volume-high" id="audioIcon"></i>
-          </button>
-          <div class="audio-info">
-            <span class="audio-label">Presentación RISKCOM</span>
-            <div class="audio-progress-wrap">
-              <div class="audio-progress-bar" id="audioProgressBar"></div>
-            </div>
-          </div>
-        </div>
 
         <div class="fs-stats">
           <!-- <div class="stat"><span class="stat-number">+500</span><span class="stat-label">Clientes</span></div>
@@ -122,7 +127,22 @@
       <div class="fs-video-bg" id="video-quienes-somos"></div>
       <div class="fs-overlay"></div>
       <div class="fs-content">
-        <div class="section-badge">Acerca de RISKCOM</div>
+        <div class="section-header-top">
+          <div class="section-badge">Acerca de RISKCOM</div>
+          <!-- Audio Quiénes Somos -->
+          <div class="audio-player" id="audioPlayerAbout">
+            <audio id="aboutAudio" src="assets/Audios/quienessomos.m4a" preload="metadata"></audio>
+            <button class="audio-btn" id="audioBtnAbout" aria-label="Reproducir audio de Quiénes Somos">
+              <i class="fa-solid fa-volume-high" id="audioIconAbout"></i>
+            </button>
+            <div class="audio-info">
+              <span class="audio-label">Audio Quiénes Somos</span>
+              <div class="audio-progress-wrap">
+                <div class="audio-progress-bar" id="audioProgressBarAbout"></div>
+              </div>
+            </div>
+          </div>
+        </div>
         <h2 class="fs-title">Quiénes Somos</h2>
         <div class="about-content">
           <div class="about-text">
@@ -315,72 +335,5 @@
   </main>
 
   <script src="main.js"></script>
-  <script>
-    /* ── Audio de inicio ── */
-    (function () {
-      const audio    = document.getElementById('introAudio');
-      const btn      = document.getElementById('audioBtn');
-      const icon     = document.getElementById('audioIcon');
-      const progress = document.getElementById('audioProgressBar');
-      const player   = document.getElementById('audioPlayer');
-
-      function setIcon(playing) {
-        icon.className = playing ? 'fa-solid fa-pause' : 'fa-solid fa-volume-high';
-      }
-
-      // Barra de progreso
-      audio.addEventListener('timeupdate', function () {
-        if (!audio.duration) return;
-        progress.style.width = (audio.currentTime / audio.duration * 100) + '%';
-      });
-
-      audio.addEventListener('ended', function () {
-        setIcon(false);
-        progress.style.width = '0%';
-      });
-
-      // Botón play/pause
-      btn.addEventListener('click', function () {
-        if (audio.paused) {
-          audio.play();
-          setIcon(true);
-        } else {
-          audio.pause();
-          setIcon(false);
-        }
-      });
-
-      // Intento directo al cargar
-      function tryAutoplay() {
-        audio.play().then(function () {
-          setIcon(true);
-          player.classList.remove('audio-waiting');
-        }).catch(function () {
-          // Bloqueado por el navegador: esperar primera interacción
-          player.classList.add('audio-waiting');
-          setIcon(false);
-          var events = ['click', 'keydown', 'touchstart', 'scroll'];
-          function onInteraction() {
-            audio.play().then(function () {
-              setIcon(true);
-              player.classList.remove('audio-waiting');
-            }).catch(function () {});
-            events.forEach(function (e) {
-              document.removeEventListener(e, onInteraction);
-            });
-          }
-          events.forEach(function (e) {
-            document.addEventListener(e, onInteraction, { once: true, passive: true });
-          });
-        });
-      }
-
-      if (document.readyState === 'complete') {
-        tryAutoplay();
-      } else {
-        window.addEventListener('load', tryAutoplay);
-      }
-    })();
-  </script>
 </body>
 </html>
