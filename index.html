@@ -3,137 +3,218 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>RISKCOM | Gestión de Pérdidas y Riesgos</title>
+  <title>RISKCOM | Aliado Estratégico en Gestión de Riesgos, Crisis y Continuidad</title>
   <link rel="stylesheet" href="styles.css" />
   <link rel="icon" type="image/png" href="assets/logo/RKMico.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 </head>
 <body>
 
   <!-- ═══════════════════════════════════════════
-       SIDEBAR — flotante, siempre encima
+       BARRA SUPERIOR EJECUTIVA + MENÚ PRINCIPAL
   ═══════════════════════════════════════════ -->
-  <aside class="sidebar" id="sidebar">
-    <div class="sidebar-logo">
-      <img src="assets/logo/RKM4.png" alt="RISKCOM" class="sidebar-logo-img" />
+  <header class="site-header is-wide" id="siteHeader">
+    <div class="topbar-strip">
+      <div class="topbar-inner">
+        <div class="topbar-left">
+          <span><i class="fas fa-shield-halved" aria-hidden="true"></i> Aliado Estratégico B2B en Gestión de Riesgos, Crisis y Continuidad</span>
+        </div>
+        <div class="topbar-right">
+          <a href="mailto:info@riskcom.com"><i class="fas fa-envelope" aria-hidden="true"></i> info@riskcom.com</a>
+          <span class="topbar-sep" aria-hidden="true">|</span>
+          <span><i class="fas fa-location-dot" aria-hidden="true"></i> Bogotá, Colombia</span>
+        </div>
+      </div>
     </div>
 
-    <nav class="sidebar-nav">
-      <ul>
-        <li class="nav-item active" data-section="inicio">
-          <a href="#inicio"><span>Inicio</span></a>
-        </li>
-        <li class="nav-item" data-section="quienes-somos">
-          <a href="#quienes-somos"><span>Quienes Somos</span></a>
-        </li>
-        <li class="nav-item" data-section="soluciones">
-          <a href="#soluciones"><span>Soluciones</span></a>
-        </li>
-        <li class="nav-item" data-section="propuesta">
-          <a href="#propuesta"><span>Propuesta de Valor</span></a>
-        </li>
-        <li class="nav-item" data-section="rse">
-          <a href="#rse"><span>RSE</span></a>
-        </li>
-        <li class="nav-item" data-section="informacion">
-          <a href="#informacion"><span>Información</span></a>
-        </li>
-        <li class="nav-item" data-section="videos">
-          <a href="#videos"><span>Videos</span></a>
-        </li>
-        <li class="nav-item" data-section="contacto">
-          <a href="#contacto"><span>Contáctenos</span></a>
-        </li>
-      </ul>
-    </nav>
+    <div class="header-inner" id="headerInner">
+      <a class="site-logo" href="#inicio" aria-label="RISKCOM - Ir al inicio">
+        <img src="assets/logo/RKM2.png" alt="RISKCOM" class="site-logo-img" />
+      </a>
 
-    <div class="sidebar-footer">
-      <span>© 2026 RISKCOM</span>
+      <nav class="site-nav" aria-label="Navegación principal">
+        <button
+          class="menu-button"
+          id="mobileMenuBtn"
+          type="button"
+          popovertarget="site-menu"
+          popovertargetaction="toggle"
+          aria-controls="site-menu"
+        >
+          <i class="fas fa-bars" aria-hidden="true"></i>
+          <span>Menú</span>
+        </button>
+
+        <ul id="site-menu" class="site-menu" popover="auto">
+          <li class="nav-item" data-section="inicio">
+            <a href="#inicio" aria-current="page"><span>Inicio</span></a>
+          </li>
+          <li class="nav-item" data-section="quienes-somos">
+            <a href="#quienes-somos"><span>Quiénes Somos</span></a>
+          </li>
+          <li class="nav-item" data-section="soluciones">
+            <a href="#soluciones"><span>Soluciones</span></a>
+          </li>
+          <li class="nav-item" data-section="propuesta">
+            <a href="#propuesta"><span>Propuesta de Valor</span></a>
+          </li>
+          <li class="nav-item" data-section="rse">
+            <a href="#rse"><span>RSE</span></a>
+          </li>
+          <li class="nav-item" data-section="informacion">
+            <a href="#informacion"><span>Información</span></a>
+          </li>
+          <li class="nav-item" data-section="videos">
+            <a href="#videos"><span>Videos</span></a>
+          </li>
+          <li class="nav-item nav-item-cta" data-section="contacto">
+            <a href="#contacto" class="nav-cta-link">
+              <span>Contáctenos</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
     </div>
-
-  </aside>
-
-  <!-- Backdrop para móvil -->
-  <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
-
-  <!-- Botón hamburguesa móvil (flotante) -->
-  <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Abrir menú">
-    <i class="fas fa-bars"></i>
-  </button>
+  </header>
 
   <!-- ═══════════════════════════════════════════
        CONTENEDOR DE SECCIONES (scroll principal)
   ═══════════════════════════════════════════ -->
   <main class="sections-wrapper" id="sectionsWrapper">
 
-    <!-- ── INICIO ─────────────────────────────── -->
-    <section class="fs-section has-video" id="inicio">
-      <div class="fs-video-bg" id="video-inicio" data-video="assets/Videos/Inicio.mp4">
+    <!-- ── INICIO (HERO CORPORATIVO) ───────────────── -->
+    <section class="fs-section hero-section has-video" id="inicio">
+      <div class="fs-video-bg" id="video-inicio">
+        <video id="heroBgVideo" autoplay muted loop playsinline preload="auto" aria-hidden="true">
+          <source src="assets/Videos/Inicio.mp4" type="video/mp4" />
+        </video>
       </div>
       <div class="fs-overlay"></div>
+
+      <button
+        type="button"
+        class="hero-video-toggle"
+        id="heroVideoToggle"
+        aria-label="Pausar video de fondo"
+      >
+        <i class="fas fa-pause" id="heroVideoIcon" aria-hidden="true"></i>
+        <span id="heroVideoLabel">Pausar video</span>
+      </button>
+
       <div class="fs-content">
-        <div class="hero-brand">
-          <img src="assets/logo/RKM4.png" alt="RISKCOM - Gestión de Riesgos, Crisis y Continuidad" class="hero-logo" />
-        </div>
-        <div class="inicio-header-top">
-          <div class="section-badge">Bienvenidos</div>
-          <!-- Audio presentación -->
-          <div class="audio-player" id="audioPlayer">
-            <audio id="introAudio" src="assets/Audios/Inicio.m4a" preload="auto"></audio>
-            <button class="audio-btn" id="audioBtn" aria-label="Reproducir audio de presentación">
-              <i class="fa-solid fa-volume-high" id="audioIcon"></i>
-            </button>
-            <div class="audio-info">
-              <span class="audio-label">Presentación RISKCOM</span>
-              <div class="audio-progress-wrap">
-                <div class="audio-progress-bar" id="audioProgressBar"></div>
+        <div class="hero-grid">
+          <div class="hero-main">
+            <div class="inicio-header-top">
+              <div class="section-badge badge-orange">
+                <i class="fas fa-building-circle-check" aria-hidden="true"></i> Aliado Empresarial B2B
+              </div>
+              <!-- Audio presentación -->
+              <div class="audio-player" id="audioPlayer">
+                <audio id="introAudio" src="assets/Audios/Inicio.m4a" preload="auto"></audio>
+                <button class="audio-btn" id="audioBtn" type="button" aria-label="Reproducir audio de presentación">
+                  <i class="fa-solid fa-volume-high" id="audioIcon" aria-hidden="true"></i>
+                </button>
+                <div class="audio-info">
+                  <span class="audio-label">Presentación RISKCOM</span>
+                  <div class="audio-progress-wrap">
+                    <div class="audio-progress-bar" id="audioProgressBar"></div>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
-        <h1 class="fs-title">
-          Gestión de Riesgos, Crisis<br>y Continuidad
-        </h1>
-        <p class="fs-subtitle">Para el comercio, cadenas de abastecimiento, Retail y Mall</p>
-        <p class="fs-body">
-          Protegemos personas, activos y reputación a través de la gestión de riesgos, la crisis, la continuidad y la seguridad.
-        </p>
-        <div class="fs-keywords">
-          <span>CONTROL</span>
-          <span>TRANQUILIDAD</span>
-          <span>PRODUCTIVIDAD</span>
-          <span>OPTIMIZACIÓN</span>
-        </div>
-        <div class="fs-cta">
-          <a href="#soluciones" class="btn-primary">Nuestros Servicios</a>
-          <a href="#contacto" class="btn-secondary">Contáctenos</a>
-        </div>
 
-        <div class="fs-stats">
-          <!-- <div class="stat"><span class="stat-number">+500</span><span class="stat-label">Clientes</span></div>
-          <div class="stat-divider"></div> -->
-          <div class="stat"><span class="stat-number">+15</span><span class="stat-label">Años de experiencia</span></div>
-          <div class="stat-divider"></div>
-          <!-- <div class="stat"><span class="stat-number">+20</span><span class="stat-label">Países</span></div> -->
+            <h1 class="fs-title">
+              Su aliado estratégico en <span class="text-gradient-brand">Gestión de Riesgos, Crisis y Continuidad</span>
+            </h1>
+
+            <p class="fs-subtitle">
+              Soluciones corporativas para el Comercio, Cadenas de Abastecimiento, Retail y Centros Comerciales (Malls)
+            </p>
+
+            <p class="fs-body">
+              Protegemos personas, activos y reputación corporativa mediante estrategias preventivas de alto impacto que optimizan sus procesos y entregan un balance financiero positivo frente a pérdidas y riesgos.
+            </p>
+
+            <div class="fs-keywords" aria-label="Pilares estratégicos">
+              <span class="kw-green"><i class="fas fa-sliders" aria-hidden="true"></i> CONTROL</span>
+              <span class="kw-orange"><i class="fas fa-shield-heart" aria-hidden="true"></i> TRANQUILIDAD</span>
+              <span class="kw-green"><i class="fas fa-chart-line" aria-hidden="true"></i> PRODUCTIVIDAD</span>
+              <span class="kw-orange"><i class="fas fa-bolt" aria-hidden="true"></i> OPTIMIZACIÓN</span>
+            </div>
+
+            <div class="fs-cta">
+              <a href="#contacto" class="btn-primary">
+                <i class="fas fa-calendar-check" aria-hidden="true"></i> Solicitar Diagnóstico Corporativo
+              </a>
+              <a href="#soluciones" class="btn-secondary">
+                <i class="fas fa-layer-group" aria-hidden="true"></i> Explorar Portafolio
+              </a>
+            </div>
+          </div>
+
+          <!-- Tarjeta ejecutiva lateral en el Hero -->
+          <aside class="hero-partner-card" aria-label="Resumen de valor empresarial">
+            <div class="partner-card-header">
+              <img src="assets/logo/RKM2.png" alt="Logo RISKCOM" class="hero-logo" />
+              <span class="partner-tag">Continuidad &amp; Rentabilidad</span>
+            </div>
+            <h3>¿Por qué las empresas nos eligen como su socio de riesgos?</h3>
+            <ul class="partner-checklist">
+              <li>
+                <span class="check-icon orange"><i class="fas fa-scale-balanced" aria-hidden="true"></i></span>
+                <div>
+                  <strong>Balance Financiero vs. Pérdidas</strong>
+                  <p>Enfoque directo en la rentabilidad y reducción medible de mermas operativas.</p>
+                </div>
+              </li>
+              <li>
+                <span class="check-icon green"><i class="fas fa-coins" aria-hidden="true"></i></span>
+                <div>
+                  <strong>Costos Más Competitivos</strong>
+                  <p>Alternativa estratégica con mayor alcance de gestión y menores costos frente al modelo tradicional regulado.</p>
+                </div>
+              </li>
+              <li>
+                <span class="check-icon orange"><i class="fas fa- diagram-project fa-sitemap" aria-hidden="true"></i></span>
+                <div>
+                  <strong>Cobertura Integral en Comercio</strong>
+                  <p>Protección articulada de personas, activos, cadena logística y reputación de marca.</p>
+                </div>
+              </li>
+            </ul>
+            <div class="fs-stats">
+              <div class="stat">
+                <span class="stat-number">+15</span>
+                <span class="stat-label">Años de experiencia directiva</span>
+              </div>
+              <div class="stat-divider"></div>
+              <div class="stat">
+                <span class="stat-number">100%</span>
+                <span class="stat-label">Compromiso y confidencialidad</span>
+              </div>
+            </div>
+          </aside>
         </div>
       </div>
     </section>
 
     <!-- ── QUIENES SOMOS ──────────────────────── -->
-    <section class="fs-section" id="quienes-somos">
+    <section class="fs-section section-light" id="quienes-somos">
       <div class="fs-video-bg" id="video-quienes-somos"></div>
       <div class="fs-overlay"></div>
       <div class="fs-content">
         <div class="section-header-top">
-          <div class="section-badge">Acerca de RISKCOM</div>
+          <div class="section-badge badge-green">
+            <i class="fas fa-award" aria-hidden="true"></i> Acerca de RISKCOM
+          </div>
           <!-- Audio Quiénes Somos -->
           <div class="audio-player" id="audioPlayerAbout">
             <audio id="aboutAudio" src="assets/Audios/quienessomos.m4a" preload="metadata"></audio>
-            <button class="audio-btn" id="audioBtnAbout" aria-label="Reproducir audio de Quiénes Somos">
-              <i class="fa-solid fa-volume-high" id="audioIconAbout"></i>
+            <button class="audio-btn" id="audioBtnAbout" type="button" aria-label="Reproducir audio de Quiénes Somos">
+              <i class="fa-solid fa-volume-high" id="audioIconAbout" aria-hidden="true"></i>
             </button>
             <div class="audio-info">
               <span class="audio-label">Audio Quiénes Somos</span>
@@ -143,190 +224,399 @@
             </div>
           </div>
         </div>
-        <h2 class="fs-title">Quiénes Somos</h2>
-        <div class="about-content">
-          <div class="about-text">
-            <p><strong>Riskcom</strong> es una solución alterna a los servicios de vigilancia y seguridad privada que busca cubrir mayores tareas en la <strong>gestión de los riesgos del comercio</strong>. Proporcionamos a las organizaciones del comercio las mejores soluciones y estrategias de <strong>gestión de riesgos, crisis y continuidad</strong> para resguardar sus operaciones comerciales, enfocados en la integridad de personas, activos, reputación y gestión de pérdidas.</p>
 
-            <p>Estas prácticas buscan optimizar sus procesos entregando un <strong>balance financiero vs. pérdidas y riesgos</strong>.</p>
+        <div class="section-heading-block">
+          <h2 class="fs-title">Quiénes Somos</h2>
+          <p class="fs-subtitle">El socio estratégico que transforma la prevención de riesgos en rentabilidad empresarial</p>
+        </div>
 
-            <p>Conceptos jurídicos de órganos de control del gobierno colombiano indican que nuestras actividades <strong>no están enmarcadas en servicios de vigilancia y seguridad privada</strong>, lo que nos permite desarrollar más actividades en pro del cliente con <strong>costos más bajos</strong> a los del mercado regulado por la Superintendencia de Vigilancia y Seguridad Privada.</p>
+        <div class="about-grid">
+          <div class="about-text-card">
+            <div class="about-text">
+              <p><strong>Riskcom</strong> es una solución alterna a los servicios de vigilancia y seguridad privada que busca cubrir mayores tareas en la <strong>gestión de los riesgos del comercio</strong>. Proporcionamos a las organizaciones del comercio las mejores soluciones y estrategias de <strong>gestión de riesgos, crisis y continuidad</strong> para resguardar sus operaciones comerciales, enfocados en la integridad de personas, activos, reputación y gestión de pérdidas.</p>
 
-            <p>Queremos ser reconocidos por los negocios de comercio como el <strong>mejor asociado de negocios</strong>, generando valor en la prevención y la gestión de los riesgos, las crisis y la continuidad, aportando a la <strong>rentabilidad y la continuidad del negocio</strong>.</p>
+              <p>Estas prácticas buscan optimizar sus procesos entregando un <strong>balance financiero vs. pérdidas y riesgos</strong>.</p>
 
-            <p>Somos una organización que obra con <strong>TRANSPARENCIA</strong>, entregando recomendaciones de manera <strong>RESPONSABLE</strong>. Generamos desde el inicio de la relación comercial un absoluto <strong>COMPROMISO</strong>. Nuestra filosofía de <strong>RESPETO</strong> tanto por la ley como por la ética de los negocios y el know how del cliente, hace que obremos con la mayor <strong>CONFIDENCIALIDAD</strong> sobre la información corporativa de nuestro asociado.</p>
+              <p>Conceptos jurídicos de órganos de control del gobierno colombiano indican que nuestras actividades <strong>no están enmarcadas en servicios de vigilancia y seguridad privada</strong>, lo que nos permite desarrollar más actividades en pro del cliente con <strong>costos más bajos</strong> a los del mercado regulado por la Superintendencia de Vigilancia y Seguridad Privada.</p>
 
-            <p><strong>Riskcom no ofrece</strong> servicios de poligrafías, tecnología en seguridad, supervisión de vigilancia y seguridad privada, investigaciones, visitas domiciliarias, estudios de seguridad física, seguimientos de personal, servicios de vigilancia y seguridad privada en cualquier modalidad, ni acciones legales de judicialización.</p>
+              <p>Queremos ser reconocidos por los negocios de comercio como el <strong>mejor asociado de negocios</strong>, generando valor en la prevención y la gestión de los riesgos, las crisis y la continuidad, aportando a la <strong>rentabilidad y la continuidad del negocio</strong>.</p>
+            </div>
+
+            <div class="about-disclaimer-box">
+              <div class="disclaimer-icon"><i class="fas fa-circle-exclamation" aria-hidden="true"></i></div>
+              <div>
+                <h4>Alcance Corporativo y Marco de Actuación</h4>
+                <p><strong>Riskcom no ofrece</strong> servicios de poligrafías, tecnología en seguridad, supervisión de vigilancia y seguridad privada, investigaciones, visitas domiciliarias, estudios de seguridad física, seguimientos de personal, servicios de vigilancia y seguridad privada en cualquier modalidad, ni acciones legales de judicialización.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="about-pillars">
+            <div class="pillars-header">
+              <span class="pillars-eyebrow">Filosofía Corporativa</span>
+              <h3>Nuestros 5 Pilares de Confianza</h3>
+              <p>Obramos bajo estrictos estándares éticos y corporativos desde el inicio de cada relación comercial.</p>
+            </div>
+
+            <div class="pillar-list">
+              <div class="visual-card pillar-item">
+                <div class="pillar-icon green"><i class="fas fa-eye" aria-hidden="true"></i></div>
+                <div>
+                  <h4>Transparencia</h4>
+                  <p>Claridad absoluta en diagnósticos, indicadores de gestión y resultados operativos para la alta dirección.</p>
+                </div>
+              </div>
+
+              <div class="visual-card pillar-item">
+                <div class="pillar-icon orange"><i class="fas fa-clipboard-check" aria-hidden="true"></i></div>
+                <div>
+                  <h4>Responsabilidad</h4>
+                  <p>Recomendaciones técnicas sustentadas en análisis riguroso y enfocadas en la sostenibilidad del cliente.</p>
+                </div>
+              </div>
+
+              <div class="visual-card pillar-item">
+                <div class="pillar-icon green"><i class="fas fa-handshake-angle" aria-hidden="true"></i></div>
+                <div>
+                  <h4>Compromiso</h4>
+                  <p>Acompañamiento continuo y alineación total con los objetivos estratégicos desde el primer día.</p>
+                </div>
+              </div>
+
+              <div class="visual-card pillar-item">
+                <div class="pillar-icon orange"><i class="fas fa-scale-balanced" aria-hidden="true"></i></div>
+                <div>
+                  <h4>Respeto</h4>
+                  <p>Cumplimiento irrestricto de la ley, la ética empresarial y el <em>know-how</em> propio de cada organización.</p>
+                </div>
+              </div>
+
+              <div class="visual-card pillar-item">
+                <div class="pillar-icon green"><i class="fas fa-user-lock" aria-hidden="true"></i></div>
+                <div>
+                  <h4>Confidencialidad</h4>
+                  <p>Reserva absoluta y protección integral sobre la información corporativa y estratégica de nuestro asociado.</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
     <!-- ── SOLUCIONES ──────────────────────────── -->
-    <section class="fs-section" id="soluciones">
+    <section class="fs-section section-tinted" id="soluciones">
       <div class="fs-video-bg" id="video-soluciones"></div>
       <div class="fs-overlay"></div>
       <div class="fs-content">
-        <div class="section-badge">Servicios</div>
-        <h2 class="fs-title">Soluciones</h2>
-        <p class="fs-subtitle">Nuestro portafolio de servicios especializados</p>
+        <div class="section-heading-block">
+          <div class="section-badge badge-orange">
+            <i class="fas fa-briefcase" aria-hidden="true"></i> Portafolio Corporativo
+          </div>
+          <h2 class="fs-title">Soluciones Especializadas</h2>
+          <p class="fs-subtitle">Estrategias integrales diseñadas para mitigar riesgos y proteger la cadena de valor de su empresa</p>
+        </div>
+
         <div class="services-grid">
-          <div class="service-item">
-            <div class="service-num">01</div>
-            <div class="service-icon"><i class="fas fa-building-shield"></i></div>
-            <h3>Auditorías de Seguridad</h3>
-            <p>Evaluación integral de vulnerabilidades y riesgos en instalaciones físicas, procesos y sistemas de control.</p>
-          </div>
-          <div class="service-item">
-            <div class="service-num">02</div>
-            <div class="service-icon"><i class="fas fa-users-gear"></i></div>
+          <article class="service-item accent-green">
+            <div class="service-top">
+              <div class="service-icon"><i class="fas fa-building-shield" aria-hidden="true"></i></div>
+              <span class="service-num">01</span>
+            </div>
+            <h3>Auditorías de Riesgos y Procesos</h3>
+            <p>Evaluación integral de vulnerabilidades operativas, mermas y riesgos en instalaciones comerciales, centros logísticos y puntos de venta.</p>
+            <span class="service-tag">Diagnóstico Preventivo</span>
+          </article>
+
+          <article class="service-item accent-orange">
+            <div class="service-top">
+              <div class="service-icon"><i class="fas fa-users-gear" aria-hidden="true"></i></div>
+              <span class="service-num">02</span>
+            </div>
             <h3>Formación de Personal</h3>
-            <p>Capacitación especializada en prevención de pérdidas, manejo de situaciones de riesgo y protocolos de seguridad.</p>
-          </div>
-          <div class="service-item">
-            <div class="service-num">03</div>
-            <div class="service-icon"><i class="fas fa-camera-cctv"></i></div>
-            <h3>Sistemas de Vigilancia</h3>
-            <p>Implementación y gestión de sistemas de CCTV, control de accesos y tecnología de detección de pérdidas.</p>
-          </div>
-          <div class="service-item">
-            <div class="service-num">04</div>
-            <div class="service-icon"><i class="fas fa-file-contract"></i></div>
+            <p>Capacitación corporativa especializada en cultura de prevención de pérdidas, manejo de crisis, continuidad del negocio y protocolos operativos.</p>
+            <span class="service-tag">Cultura Organizacional</span>
+          </article>
+
+          <article class="service-item accent-green">
+            <div class="service-top">
+              <div class="service-icon"><i class="fas fa-boxes-stacked" aria-hidden="true"></i></div>
+              <span class="service-num">03</span>
+            </div>
+            <h3>Control y Prevención de Pérdidas</h3>
+            <p>Estrategias de monitoreo y articulación de controles en cadenas de abastecimiento, Retail y Malls para reducir el impacto financiero del riesgo.</p>
+            <span class="service-tag">Protección de Activos</span>
+          </article>
+
+          <article class="service-item accent-orange">
+            <div class="service-top">
+              <div class="service-icon"><i class="fas fa-file-contract" aria-hidden="true"></i></div>
+              <span class="service-num">04</span>
+            </div>
             <h3>Políticas Corporativas</h3>
-            <p>Diseño e implementación de políticas, procedimientos y marcos normativos de seguridad corporativa.</p>
-          </div>
-          <div class="service-item">
-            <div class="service-num">05</div>
-            <div class="service-icon"><i class="fas fa-chart-pie"></i></div>
-            <h3>Reportería &amp; KPI's</h3>
-            <p>Dashboard ejecutivo en tiempo real con indicadores clave para la toma de decisiones estratégicas.</p>
-          </div>
-          <div class="service-item">
-            <div class="service-num">06</div>
-            <div class="service-icon"><i class="fas fa-scale-balanced"></i></div>
+            <p>Diseño, estandarización e implementación de políticas, manuales de crisis, planes de continuidad y marcos normativos internos.</p>
+            <span class="service-tag">Gobierno Corporativo</span>
+          </article>
+
+          <article class="service-item accent-green">
+            <div class="service-top">
+              <div class="service-icon"><i class="fas fa-chart-pie" aria-hidden="true"></i></div>
+              <span class="service-num">05</span>
+            </div>
+            <h3>Reportería Ejecutiva &amp; KPI's</h3>
+            <p>Tableros de control e informes gerenciales con métricas clave de riesgo vs. beneficio para respaldar decisiones de alta dirección.</p>
+            <span class="service-tag">Inteligencia de Negocio</span>
+          </article>
+
+          <article class="service-item accent-orange">
+            <div class="service-top">
+              <div class="service-icon"><i class="fas fa-scale-balanced" aria-hidden="true"></i></div>
+              <span class="service-num">06</span>
+            </div>
             <h3>Compliance &amp; RSE</h3>
-            <p>Acompañamiento en cumplimiento normativo, responsabilidad social empresarial y gestión ética.</p>
-          </div>
+            <p>Acompañamiento en cumplimiento normativo, gestión ética en la cadena comercial y programas de responsabilidad social empresarial.</p>
+            <span class="service-tag">Sostenibilidad y Ética</span>
+          </article>
         </div>
       </div>
     </section>
 
     <!-- ── PROPUESTA DE VALOR ──────────────────── -->
-    <section class="fs-section" id="propuesta">
+    <section class="fs-section section-light" id="propuesta">
       <div class="fs-video-bg" id="video-propuesta"></div>
       <div class="fs-overlay"></div>
       <div class="fs-content">
-        <div class="section-badge">Diferencial</div>
-        <h2 class="fs-title">Propuesta de Valor</h2>
-        <p class="fs-subtitle">Por qué elegir RISKCOM</p>
-        <div class="placeholder-content">
-          <i class="fas fa-star placeholder-icon"></i>
-          <p>Contenido en construcción — próximamente disponible.</p>
+        <div class="section-heading-block">
+          <div class="section-badge badge-green">
+            <i class="fas fa-gem" aria-hidden="true"></i> Diferencial Competitivo
+          </div>
+          <h2 class="fs-title">Propuesta de Valor</h2>
+          <p class="fs-subtitle">Por qué RISKCOM es el aliado ideal para empresas que buscan proteger su rentabilidad</p>
+        </div>
+
+        <div class="cards-grid value-grid">
+          <div class="card value-card">
+            <div class="card-icon orange"><i class="fas fa-chart-line" aria-hidden="true"></i></div>
+            <span class="value-badge">Impacto Financiero</span>
+            <h3>Optimización Costo–Beneficio</h3>
+            <p>Nuestro modelo no regulado por vigilancia tradicional nos permite ejecutar un alcance operativo más amplio en prevención de pérdidas con costos significativamente más competitivos.</p>
+          </div>
+
+          <div class="card value-card">
+            <div class="card-icon green"><i class="fas fa-arrows-spin" aria-hidden="true"></i></div>
+            <span class="value-badge">Resiliencia Empresarial</span>
+            <h3>Continuidad de Negocio Garantizada</h3>
+            <p>Anticipamos escenarios críticos en Retail, centros comerciales y logística para evitar interrupciones operativas y salvaguardar la reputación de su marca.</p>
+          </div>
+
+          <div class="card value-card">
+            <div class="card-icon orange"><i class="fas fa-user-tie" aria-hidden="true"></i></div>
+            <span class="value-badge">Visión Gerencial</span>
+            <h3>Aliado de la Alta Dirección</h3>
+            <p>Nos integramos con sus equipos directivos y operativos respetando el <em>know-how</em> de su organización, entregando recomendaciones accionables y medibles.</p>
+          </div>
+        </div>
+
+        <div class="corporate-banner">
+          <div class="banner-text">
+            <h3>¿Busca optimizar el presupuesto de control de riesgos de su organización?</h3>
+            <p>Conozca cómo nuestro enfoque consultivo y preventivo reduce pérdidas operativas sin sobrecostos fijos.</p>
+          </div>
+          <a href="#contacto" class="btn-primary">Agendar Reunión Ejecutiva</a>
         </div>
       </div>
     </section>
 
     <!-- ── RSE ─────────────────────────────────── -->
-    <section class="fs-section" id="rse">
+    <section class="fs-section section-tinted" id="rse">
       <div class="fs-video-bg" id="video-rse"></div>
       <div class="fs-overlay"></div>
       <div class="fs-content">
-        <div class="section-badge">Responsabilidad</div>
-        <h2 class="fs-title">RSE</h2>
-        <p class="fs-subtitle">Responsabilidad Social Empresarial</p>
-        <div class="placeholder-content">
-          <i class="fas fa-leaf placeholder-icon"></i>
-          <p>Contenido en construcción — próximamente disponible.</p>
+        <div class="section-heading-block">
+          <div class="section-badge badge-green">
+            <i class="fas fa-leaf" aria-hidden="true"></i> Sostenibilidad y Compromiso
+          </div>
+          <h2 class="fs-title">Responsabilidad Social Empresarial</h2>
+          <p class="fs-subtitle">Construimos entornos comerciales más seguros, éticos y humanos</p>
+        </div>
+
+        <div class="cards-grid">
+          <div class="card">
+            <div class="card-icon green"><i class="fas fa-people-group" aria-hidden="true"></i></div>
+            <h3>Entornos Seguros para las Personas</h3>
+            <p>Priorizamos la integridad física y el bienestar de colaboradores, clientes y visitantes en cada centro comercial, tienda o plataforma logística.</p>
+          </div>
+
+          <div class="card">
+            <div class="card-icon orange"><i class="fas fa-hand-holding-heart" aria-hidden="true"></i></div>
+            <h3>Cultura de Legalidad y Ética</h3>
+            <p>Promovemos prácticas empresariales íntegras, fortaleciendo la confianza entre proveedores, aliados comerciales y comunidades locales.</p>
+          </div>
+
+          <div class="card">
+            <div class="card-icon green"><i class="fas fa-seedling" aria-hidden="true"></i></div>
+            <h3>Eficiencia y Sostenibilidad Operativa</h3>
+            <p>La reducción de pérdidas y desperdicios en la cadena de suministro impacta positivamente en el uso responsable de recursos empresariales.</p>
+          </div>
         </div>
       </div>
     </section>
 
     <!-- ── INFORMACIÓN ─────────────────────────── -->
-    <section class="fs-section" id="informacion">
+    <section class="fs-section section-light" id="informacion">
       <div class="fs-video-bg" id="video-informacion"></div>
       <div class="fs-overlay"></div>
       <div class="fs-content">
-        <div class="section-badge">Recursos</div>
-        <h2 class="fs-title">Información</h2>
-        <p class="fs-subtitle">Documentos, artículos y recursos de interés</p>
-        <div class="placeholder-content">
-          <i class="fas fa-circle-info placeholder-icon"></i>
-          <p>Contenido en construcción — próximamente disponible.</p>
+        <div class="section-heading-block">
+          <div class="section-badge badge-orange">
+            <i class="fas fa-book-open" aria-hidden="true"></i> Centro de Conocimiento
+          </div>
+          <h2 class="fs-title">Información Corporativa</h2>
+          <p class="fs-subtitle">Criterios técnicos, normativos y estratégicos para la gestión moderna de riesgos</p>
+        </div>
+
+        <div class="cards-grid">
+          <div class="card info-card">
+            <div class="card-icon orange"><i class="fas fa-gavel" aria-hidden="true"></i></div>
+            <h3>Marco Jurídico y Regulatorio</h3>
+            <p>Respaldo conceptual sobre la diferenciación entre consultoría integral de riesgos comerciales y los servicios tradicionales de vigilancia privada.</p>
+          </div>
+
+          <div class="card info-card">
+            <div class="card-icon green"><i class="fas fa-store" aria-hidden="true"></i></div>
+            <h3>Guías para Retail y Centros Comerciales</h3>
+            <p>Buenas prácticas en prevención de mermas, gestión de tráfico de visitantes, protocolos de emergencia y articulación de cadenas de abastecimiento.</p>
+          </div>
+
+          <div class="card info-card">
+            <div class="card-icon orange"><i class="fas fa-file-shield" aria-hidden="true"></i></div>
+            <h3>Continuidad de Negocio (BCP)</h3>
+            <p>Lineamientos ejecutivos para preparar a su organización ante incidentes críticos, protegiendo la operación y la reputación corporativa.</p>
+          </div>
         </div>
       </div>
     </section>
 
     <!-- ── VÍDEOS ──────────────────────────────── -->
-    <section class="fs-section" id="videos">
+    <section class="fs-section section-tinted" id="videos">
       <div class="fs-video-bg" id="video-videos"></div>
       <div class="fs-overlay"></div>
       <div class="fs-content">
-        <div class="section-badge">Multimedia</div>
-        <h2 class="fs-title">Vídeos</h2>
-        <p class="fs-subtitle">Material audiovisual de RISKCOM</p>
-        <div class="placeholder-content">
-          <i class="fas fa-play-circle placeholder-icon"></i>
-          <p>Contenido en construcción — próximamente disponible.</p>
+        <div class="section-heading-block">
+          <div class="section-badge badge-green">
+            <i class="fas fa-circle-play" aria-hidden="true"></i> Sala Multimedia
+          </div>
+          <h2 class="fs-title">Vídeos Corporativos</h2>
+          <p class="fs-subtitle">Conozca en detalle nuestro enfoque en gestión de pérdidas, crisis y continuidad</p>
+        </div>
+
+        <div class="video-showcase">
+          <div class="video-feature-card">
+            <div class="video-player-wrapper">
+              <video controls preload="metadata" poster="assets/logo/RKM2.png">
+                <source src="assets/Videos/Inicio.mp4" type="video/mp4" />
+                Su navegador no soporta la reproducción de video.
+              </video>
+            </div>
+            <div class="video-feature-info">
+              <span class="value-badge">Presentación Institucional</span>
+              <h3>Visión Estratégica RISKCOM para el Sector Comercio y Retail</h3>
+              <p>Descubra cómo acompañamos a las empresas como aliados estratégicos en el control de pérdidas, optimización de procesos y protección de activos.</p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
     <!-- ── CONTACTO ────────────────────────────── -->
-    <section class="fs-section" id="contacto">
+    <section class="fs-section section-light" id="contacto">
       <div class="fs-video-bg" id="video-contacto"></div>
       <div class="fs-overlay"></div>
       <div class="fs-content">
-        <div class="section-badge">Contacto</div>
-        <h2 class="fs-title">Contáctenos</h2>
-        <p class="fs-subtitle">Estamos listos para ayudarle a proteger su empresa</p>
+        <div class="section-heading-block">
+          <div class="section-badge badge-orange">
+            <i class="fas fa-paper-plane" aria-hidden="true"></i> Atención Empresarial
+          </div>
+          <h2 class="fs-title">Contáctenos</h2>
+          <p class="fs-subtitle">Convierta a RISKCOM en el aliado estratégico para proteger y potenciar su empresa</p>
+        </div>
+
         <div class="contact-grid">
           <div class="contact-info">
-            <div class="contact-item">
-              <i class="fas fa-map-marker-alt"></i>
-              <div><h4>Ubicación</h4><p>Bogotá, Colombia</p></div>
+            <div class="contact-intro-box">
+              <h3>Hablemos de los objetivos de su organización</h3>
+              <p>Nuestro equipo directivo está disponible para realizar una sesión de diagnóstico inicial bajo total confidencialidad.</p>
             </div>
+
             <div class="contact-item">
-              <i class="fas fa-phone"></i>
-              <div><h4>Teléfono</h4><p>+57 (1) 000 0000</p></div>
+              <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
+              <div>
+                <h4>Sede Corporativa</h4>
+                <p>Bogotá, Colombia</p>
+              </div>
             </div>
+
             <div class="contact-item">
-              <i class="fas fa-envelope"></i>
-              <div><h4>Correo</h4><p>info@riskcom.com</p></div>
+              <i class="fas fa-phone" aria-hidden="true"></i>
+              <div>
+                <h4>Línea de Atención Empresarial</h4>
+                <p>+57 (1) 000 0000</p>
+              </div>
+            </div>
+
+            <div class="contact-item">
+              <i class="fas fa-envelope" aria-hidden="true"></i>
+              <div>
+                <h4>Correo Corporativo</h4>
+                <p>info@riskcom.com</p>
+              </div>
             </div>
           </div>
+
           <form class="contact-form">
             <div class="form-row">
               <div class="form-group">
-                <label for="nombre">Nombre</label>
-                <input type="text" id="nombre" placeholder="Su nombre completo" />
+                <label for="nombre">Nombre y Cargo</label>
+                <input type="text" id="nombre" placeholder="Ej. Carlos Mendoza - Director de Operaciones" required />
               </div>
               <div class="form-group">
-                <label for="empresa">Empresa</label>
-                <input type="text" id="empresa" placeholder="Nombre de su empresa" />
+                <label for="empresa">Empresa / Organización</label>
+                <input type="text" id="empresa" placeholder="Nombre de su empresa" required />
               </div>
             </div>
             <div class="form-group">
-              <label for="email">Correo electrónico</label>
-              <input type="email" id="email" placeholder="su@correo.com" />
+              <label for="email">Correo Electrónico Corporativo</label>
+              <input type="email" id="email" placeholder="nombre@suempresa.com" required />
             </div>
             <div class="form-group">
-              <label for="mensaje">Mensaje</label>
-              <textarea id="mensaje" rows="4" placeholder="¿En qué podemos ayudarle?"></textarea>
+              <label for="mensaje">¿Cómo podemos apoyar a su organización?</label>
+              <textarea id="mensaje" rows="4" placeholder="Cuéntenos brevemente sus necesidades en gestión de riesgos, pérdidas o continuidad..." required></textarea>
             </div>
             <button type="submit" class="btn-primary btn-full">
-              <i class="fas fa-paper-plane"></i> Enviar mensaje
+              <i class="fas fa-paper-plane" aria-hidden="true"></i> Enviar Solicitud Corporativa
             </button>
           </form>
         </div>
 
-        <!-- Footer dentro de la última sección -->
+        <!-- Footer Corporativo -->
         <footer class="footer">
           <div class="footer-inner">
-            <div class="footer-logo">
-              <span class="logo-gpr">RISK</span><span class="logo-rms">COM</span>
+            <div class="footer-brand">
+              <img src="assets/logo/RKM2.png" alt="RISKCOM" class="footer-logo-img" />
+              <p class="footer-tagline">Aliado estratégico en Gestión de Riesgos, Crisis y Continuidad para Comercio, Cadenas de Abastecimiento, Retail y Malls.</p>
             </div>
-            <p class="footer-tagline">RISKCOM · Gestión de Pérdidas y Riesgos · Retail &amp; Mall Solutions</p>
-            <p class="footer-copy">© 2026 RISKCOM. Todos los derechos reservados.</p>
+            <div class="footer-bottom">
+              <p class="footer-copy">© 2026 RISKCOM. Todos los derechos reservados.</p>
+              <div class="footer-badges">
+                <span>Transparencia</span>
+                <span>•</span>
+                <span>Responsabilidad</span>
+                <span>•</span>
+                <span>Compromiso</span>
+                <span>•</span>
+                <span>Confidencialidad</span>
+              </div>
+            </div>
           </div>
         </footer>
       </div>

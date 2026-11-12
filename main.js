@@ -1,32 +1,89 @@
 /* ============================================================
-   RISKCOM | Main JavaScript — Full-Screen Layout
+   RISKCOM | Main JavaScript — Corporate Light B2B Layout
    ============================================================ */
 
 (function () {
   'use strict';
 
+  // ── Feature-detect Popover API & Load Polyfill Conditionally ──
+  if (!Object.hasOwn(HTMLElement.prototype, 'popover')) {
+    import('https://unpkg.com/@oddbird/popover-polyfill@latest/dist/popover.min.js').catch(() => {});
+  }
+
   // ── Elements ──────────────────────────────────────────────
-  const sidebar         = document.getElementById('sidebar');
-  const sectionsWrapper = document.getElementById('sectionsWrapper');
-  const mobileMenuBtn   = document.getElementById('mobileMenuBtn');
-  const backdrop        = document.getElementById('sidebarBackdrop');
-  const navItems        = document.querySelectorAll('.nav-item');
+  const siteHeader  = document.getElementById('siteHeader');
+  const headerInner = document.getElementById('headerInner');
+  const siteMenu    = document.getElementById('site-menu');
+  const navItems    = document.querySelectorAll('.nav-item');
 
-  // ── Mobile sidebar ─────────────────────────────────────────
-  function openMobileSidebar() {
-    sidebar.classList.add('mobile-open');
-    backdrop.classList.add('visible');
-    document.body.style.overflow = 'hidden';
+  // ── Responsive Top Navbar (Intrinsic Measurement + Popover) ──
+  let lastCollapsedWidth = 0;
+
+  function syncNavbarLayout() {
+    if (!siteHeader || !headerInner || !siteMenu) return;
+
+    const wasWide = siteHeader.classList.contains('is-wide');
+    const wasOpen = !wasWide && siteMenu.matches(':is(:popover-open, .\\:popover-open)');
+
+    siteHeader.classList.add('is-measuring');
+    siteHeader.classList.add('is-wide');
+
+    const fitsInline = headerInner.scrollWidth <= headerInner.clientWidth;
+
+    if (fitsInline) {
+      siteHeader.classList.add('is-wide');
+      siteMenu.removeAttribute('popover');
+      lastCollapsedWidth = 0;
+    } else {
+      siteHeader.classList.remove('is-wide');
+      siteMenu.setAttribute('popover', 'auto');
+      lastCollapsedWidth = headerInner.clientWidth;
+      if (wasOpen && typeof siteMenu.showPopover === 'function') {
+        try {
+          siteMenu.showPopover();
+        } catch (_) {}
+      }
+    }
+
+    requestAnimationFrame(() => {
+      siteHeader.classList.remove('is-measuring');
+    });
   }
 
-  function closeMobileSidebar() {
-    sidebar.classList.remove('mobile-open');
-    backdrop.classList.remove('visible');
-    document.body.style.overflow = '';
+  if (siteHeader && headerInner && siteMenu && typeof ResizeObserver !== 'undefined') {
+    const navResizeObserver = new ResizeObserver(() => {
+      const isCurrentlyWide = siteHeader.classList.contains('is-wide');
+      if (isCurrentlyWide || headerInner.clientWidth > lastCollapsedWidth) {
+        syncNavbarLayout();
+      }
+    });
+    navResizeObserver.observe(siteHeader);
+    navResizeObserver.observe(siteMenu);
+    syncNavbarLayout();
   }
 
-  if (mobileMenuBtn) mobileMenuBtn.addEventListener('click', openMobileSidebar);
-  if (backdrop)      backdrop.addEventListener('click', closeMobileSidebar);
+  function closeMobilePopoverMenu() {
+    if (siteMenu && siteMenu.hasAttribute('popover') && typeof siteMenu.hidePopover === 'function') {
+      try {
+        siteMenu.hidePopover();
+      } catch (_) {}
+    }
+  }
+
+  function setActiveNavSection(sectionId) {
+    navItems.forEach(item => {
+      const isMatch = item.dataset.section === sectionId;
+      item.classList.toggle('active', isMatch);
+      const link = item.querySelector('a');
+      if (link) {
+        if (isMatch) {
+          link.setAttribute('aria-current', 'page');
+        } else {
+          link.removeAttribute('aria-current');
+        }
+      }
+    });
+  }
 
   // ── Audio Players (Inicio y Quiénes Somos) ──────────────────
   function createAudioPlayer(config) {
@@ -163,12 +220,12 @@
 
   // ── Active nav on click ────────────────────────────────────
   navItems.forEach(item => {
-    item.querySelector('a').addEventListener('click', () => {
+    const link = item.querySelector('a');
+    if (!link) return;
+    link.addEventListener('click', () => {
       const section = item.dataset.section;
-      navItems.forEach(n => n.classList.remove('active'));
-      item.classList.add('active');
-      if (window.innerWidth <= 768) closeMobileSidebar();
-
+      setActiveNavSection(section);
+      closeMobilePopoverMenu();
       handleSectionNavigation(section, true);
     });
   });
@@ -176,32 +233,17 @@
   // ── Active nav on scroll (Intersection Observer) ───────────
   const sections = document.querySelectorAll('.fs-section[id]');
 
-  const sectionLabels = {
-    'inicio':          'Inicio',
-    'quienes-somos':   'Quiénes Somos',
-    'soluciones':      'Soluciones',
-    'propuesta':       'Propuesta de Valor',
-    'rse':             'RSE',
-    'informacion':     'Información',
-    'videos':          'Videos',
-    'contacto':        'Contáctenos',
-  };
-
   const sectionObserver = new IntersectionObserver(
     (entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           const id = entry.target.id;
-          navItems.forEach(item => {
-            item.classList.toggle('active', item.dataset.section === id);
-          });
+          setActiveNavSection(id);
 
-          // Si llegamos a la sección objetivo de navegación
           if (navigatingToSection === id) {
             navigatingToSection = null;
           }
 
-          // Si el usuario navega o se desplaza a otra sección, detener el audio de la sección anterior
           if (!navigatingToSection) {
             if (id !== 'inicio' && introPlayer) {
               introPlayer.pause();
@@ -213,12 +255,12 @@
         }
       });
     },
-    { threshold: 0.4 }
+    { threshold: 0.35 }
   );
 
   sections.forEach(s => sectionObserver.observe(s));
 
-  // ── Smooth scroll (sin offset de topbar) ──────────────────
+  // ── Smooth scroll ──────────────────────────────────────────
   document.querySelectorAll('a[href^="#"]').forEach(link => {
     link.addEventListener('click', (e) => {
       const href = link.getAttribute('href');
@@ -226,9 +268,9 @@
       if (!target) return;
       e.preventDefault();
 
-      // Si el enlace no viene del menú lateral (por ejemplo, botones CTA como #soluciones o #contacto)
-      if (!link.closest('.sidebar-nav')) {
+      if (!link.closest('.site-nav')) {
         const targetSection = href.replace('#', '');
+        setActiveNavSection(targetSection);
         handleSectionNavigation(targetSection, false);
       }
 
@@ -246,7 +288,8 @@
         if (introPlayer.player) introPlayer.player.classList.add('audio-waiting');
         const events = ['click', 'keydown', 'touchstart'];
         function onFirstInteraction() {
-          const activeSection = document.querySelector('.nav-item.active')?.dataset.section || 'inicio';
+          const activeItem = document.querySelector('.nav-item a[aria-current="page"]')?.closest('.nav-item');
+          const activeSection = activeItem?.dataset.section || 'inicio';
           if (activeSection === 'inicio') {
             introPlayer.play(false).catch(() => {});
           }
@@ -263,8 +306,51 @@
     }
   }
 
-  // ── Lazy loading de videos ─────────────────────────────────
-  // Busca todos los .fs-video-bg que tengan data-video definido
+  // ── Video de fondo en Hero (autoplay + control de pausa WCAG) ──
+  const heroBgVideo     = document.getElementById('heroBgVideo');
+  const heroVideoToggle = document.getElementById('heroVideoToggle');
+  const heroVideoIcon   = document.getElementById('heroVideoIcon');
+  const heroVideoLabel  = document.getElementById('heroVideoLabel');
+
+  if (heroBgVideo) {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function updateHeroVideoUI(isPlaying) {
+      if (!heroVideoToggle || !heroVideoIcon || !heroVideoLabel) return;
+      heroVideoIcon.className = isPlaying ? 'fas fa-pause' : 'fas fa-play';
+      heroVideoLabel.textContent = isPlaying ? 'Pausar video' : 'Reproducir video';
+      heroVideoToggle.setAttribute(
+        'aria-label',
+        isPlaying ? 'Pausar video de fondo' : 'Reproducir video de fondo'
+      );
+    }
+
+    if (prefersReducedMotion) {
+      heroBgVideo.pause();
+      updateHeroVideoUI(false);
+    } else {
+      heroBgVideo.play().then(() => {
+        updateHeroVideoUI(true);
+      }).catch(() => {
+        updateHeroVideoUI(false);
+      });
+    }
+
+    heroBgVideo.addEventListener('play', () => updateHeroVideoUI(true));
+    heroBgVideo.addEventListener('pause', () => updateHeroVideoUI(false));
+
+    if (heroVideoToggle) {
+      heroVideoToggle.addEventListener('click', () => {
+        if (heroBgVideo.paused) {
+          heroBgVideo.play().catch(() => {});
+        } else {
+          heroBgVideo.pause();
+        }
+      });
+    }
+  }
+
+  // ── Lazy loading de videos adicionales ─────────────────────
   const videoBgs = document.querySelectorAll('.fs-video-bg[data-video]');
 
   const videoLoader = new IntersectionObserver(
@@ -275,11 +361,9 @@
         const container = entry.target;
         const src = container.dataset.video;
 
-        // Evitar cargar dos veces
         if (container.dataset.loaded) return;
         container.dataset.loaded = 'true';
 
-        // Crear el elemento video dinámicamente
         const video = document.createElement('video');
         video.autoplay    = true;
         video.muted       = true;
@@ -292,39 +376,33 @@
         source.type = 'video/mp4';
         video.appendChild(source);
 
-        // Añadir al DOM — el CSS lo hace aparecer con fade
         container.appendChild(video);
 
-        // Marcar la sección padre con has-video para ajustar el overlay
         const section = container.closest('.fs-section');
         if (section) section.classList.add('has-video');
 
-        // Intentar reproducir (algunos browsers bloquean autoplay)
-        video.play().catch(() => {
-          // Si el browser bloquea autoplay, se queda el fondo oscuro — sin error visible
-        });
+        video.play().catch(() => {});
 
-        // Cuando el video empieza a reproducirse, aplicar fade-in suave
         video.addEventListener('playing', () => {
           video.classList.add('playing');
         }, { once: true });
 
-        // Fallback: si canplay dispara pero playing no (algunos móviles)
         video.addEventListener('canplay', () => {
           setTimeout(() => video.classList.add('playing'), 100);
         }, { once: true });
       });
     },
     {
-      // Empieza a cargar cuando la sección anterior está a 100px de terminar
       rootMargin: '0px 0px -10% 0px',
       threshold: 0.1
     }
   );
 
   videoBgs.forEach(bg => videoLoader.observe(bg));
+
+  // ── Animaciones de aparición en scroll ─────────────────────
   const fadeTargets = document.querySelectorAll(
-    '.card, .service-item, .visual-card, .contact-item, .stat, .placeholder-content'
+    '.card, .service-item, .visual-card, .contact-item, .stat, .hero-partner-card, .video-feature-card'
   );
 
   fadeTargets.forEach(el => el.classList.add('fade-in'));
@@ -335,7 +413,7 @@
         if (entry.isIntersecting) {
           const siblings = Array.from(entry.target.parentElement.children);
           const index = siblings.indexOf(entry.target);
-          setTimeout(() => entry.target.classList.add('visible'), index * 80);
+          setTimeout(() => entry.target.classList.add('visible'), index * 70);
           fadeObserver.unobserve(entry.target);
         }
       });
@@ -354,12 +432,12 @@
       const btn = form.querySelector('.btn-primary');
       const original = btn.innerHTML;
 
-      btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando…';
+      btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando solicitud…';
       btn.disabled = true;
 
       setTimeout(() => {
-        btn.innerHTML = '<i class="fas fa-check"></i> Mensaje enviado';
-        btn.style.background = 'var(--accent-dim)';
+        btn.innerHTML = '<i class="fas fa-check"></i> Solicitud recibida';
+        btn.style.background = 'var(--brand-green-dark)';
 
         setTimeout(() => {
           btn.innerHTML = original;
@@ -367,13 +445,8 @@
           btn.style.background = '';
           form.reset();
         }, 3000);
-      }, 1500);
+      }, 1400);
     });
   }
-
-  // ── Resize: reset mobile state en desktop ─────────────────
-  window.addEventListener('resize', () => {
-    if (window.innerWidth > 768) closeMobileSidebar();
-  });
 
 })();
