@@ -424,7 +424,8 @@ img { display: block; max-width: 100%; }
   z-index: 1;
 }
 
-#quienes-somos .fs-overlay {
+#quienes-somos .fs-overlay,
+#propuesta .fs-overlay {
   background: linear-gradient(
     120deg,
     rgba(20, 20, 26, 0.88) 0%,
