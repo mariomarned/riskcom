@@ -427,20 +427,12 @@
 
   videoBgs.forEach(bg => videoLoader.observe(bg));
 
-  // ── Acordeón de Soluciones (Filtros + Expandir/Contraer) ────
+  // ── Acordeón de Soluciones (Filtros por categoría) ──────────
   const solutionsAccordion = document.getElementById('solutionsAccordion');
   const filterPills = document.querySelectorAll('.filter-pill');
-  const toggleAllBtn = document.getElementById('toggleAllSolutions');
 
   if (solutionsAccordion) {
     const solutionItems = Array.from(solutionsAccordion.querySelectorAll('.solution-item'));
-
-    function syncToggleAllState() {
-      if (!toggleAllBtn) return;
-      const visibleItems = solutionItems.filter(item => !item.hidden);
-      const allOpen = visibleItems.length > 0 && visibleItems.every(item => item.open);
-      toggleAllBtn.setAttribute('aria-expanded', String(allOpen));
-    }
 
     filterPills.forEach(pill => {
       pill.addEventListener('click', () => {
@@ -454,29 +446,10 @@
         solutionItems.forEach(item => {
           const match = filter === 'all' || item.dataset.category === filter;
           item.hidden = !match;
+          if (!match) item.open = false;
         });
-
-        syncToggleAllState();
       });
     });
-
-    if (toggleAllBtn) {
-      toggleAllBtn.addEventListener('click', () => {
-        const shouldExpand = toggleAllBtn.getAttribute('aria-expanded') !== 'true';
-        solutionItems.forEach(item => {
-          if (!item.hidden) item.open = shouldExpand;
-        });
-        syncToggleAllState();
-      });
-    }
-
-    solutionsAccordion.addEventListener('toggle', (event) => {
-      if (event.target.matches('.solution-item')) {
-        syncToggleAllState();
-      }
-    }, { capture: true });
-
-    syncToggleAllState();
   }
 
   // ── Animaciones de aparición en scroll ─────────────────────
