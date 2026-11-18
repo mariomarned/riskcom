@@ -350,55 +350,134 @@
     }
   }
 
-  // ── Lazy loading de videos adicionales ─────────────────────
+  // ── Carga por etapas y reproducción de videos de fondo ─────
+  const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
   const videoBgs = document.querySelectorAll('.fs-video-bg[data-video]');
+
+  function syncReducedMotionVideos(prefersReduced) {
+    if (!prefersReduced) return;
+    document.querySelectorAll('video[autoplay]').forEach(video => {
+      video.removeAttribute('autoplay');
+      video.pause();
+    });
+  }
+
+  reducedMotionQuery.addEventListener('change', (e) => {
+    syncReducedMotionVideos(e.matches);
+  });
 
   const videoLoader = new IntersectionObserver(
     (entries) => {
       entries.forEach(entry => {
-        if (!entry.isIntersecting) return;
-
         const container = entry.target;
-        const src = container.dataset.video;
+        const existingVideo = container.querySelector('video');
 
-        if (container.dataset.loaded) return;
-        container.dataset.loaded = 'true';
+        if (entry.isIntersecting) {
+          if (!container.dataset.loaded) {
+            container.dataset.loaded = 'true';
+            const src = container.dataset.video;
 
-        const video = document.createElement('video');
-        video.autoplay    = true;
-        video.muted       = true;
-        video.loop        = true;
-        video.playsInline = true;
-        video.setAttribute('aria-hidden', 'true');
+            const video = document.createElement('video');
+            video.muted       = true;
+            video.loop        = true;
+            video.playsInline = true;
+            video.preload     = 'metadata';
+            video.setAttribute('width', '1280');
+            video.setAttribute('height', '720');
+            video.setAttribute('loading', 'lazy');
+            video.setAttribute('aria-hidden', 'true');
+            if (!reducedMotionQuery.matches) {
+              video.autoplay = true;
+            }
 
-        const source = document.createElement('source');
-        source.src  = src;
-        source.type = 'video/mp4';
-        video.appendChild(source);
+            const source = document.createElement('source');
+            source.src  = src;
+            source.type = 'video/mp4';
+            video.appendChild(source);
 
-        container.appendChild(video);
+            container.appendChild(video);
 
-        const section = container.closest('.fs-section');
-        if (section) section.classList.add('has-video');
+            const section = container.closest('.fs-section');
+            if (section) section.classList.add('has-video');
 
-        video.play().catch(() => {});
+            video.addEventListener('playing', () => {
+              video.classList.add('playing');
+            }, { once: true });
 
-        video.addEventListener('playing', () => {
-          video.classList.add('playing');
-        }, { once: true });
+            video.addEventListener('canplay', () => {
+              setTimeout(() => video.classList.add('playing'), 100);
+            }, { once: true });
 
-        video.addEventListener('canplay', () => {
-          setTimeout(() => video.classList.add('playing'), 100);
-        }, { once: true });
+            if (!reducedMotionQuery.matches) {
+              video.play().catch(() => {});
+            }
+          } else if (existingVideo && !reducedMotionQuery.matches) {
+            existingVideo.play().catch(() => {});
+          }
+        } else if (existingVideo && !existingVideo.paused) {
+          existingVideo.pause();
+        }
       });
     },
     {
-      rootMargin: '0px 0px -10% 0px',
-      threshold: 0.1
+      rootMargin: '250px 0px',
+      threshold: 0.05
     }
   );
 
   videoBgs.forEach(bg => videoLoader.observe(bg));
+
+  // ── Acordeón de Soluciones (Filtros + Expandir/Contraer) ────
+  const solutionsAccordion = document.getElementById('solutionsAccordion');
+  const filterPills = document.querySelectorAll('.filter-pill');
+  const toggleAllBtn = document.getElementById('toggleAllSolutions');
+
+  if (solutionsAccordion) {
+    const solutionItems = Array.from(solutionsAccordion.querySelectorAll('.solution-item'));
+
+    function syncToggleAllState() {
+      if (!toggleAllBtn) return;
+      const visibleItems = solutionItems.filter(item => !item.hidden);
+      const allOpen = visibleItems.length > 0 && visibleItems.every(item => item.open);
+      toggleAllBtn.setAttribute('aria-expanded', String(allOpen));
+    }
+
+    filterPills.forEach(pill => {
+      pill.addEventListener('click', () => {
+        const filter = pill.dataset.filter;
+        filterPills.forEach(p => {
+          const isActive = p === pill;
+          p.classList.toggle('is-active', isActive);
+          p.setAttribute('aria-pressed', String(isActive));
+        });
+
+        solutionItems.forEach(item => {
+          const match = filter === 'all' || item.dataset.category === filter;
+          item.hidden = !match;
+        });
+
+        syncToggleAllState();
+      });
+    });
+
+    if (toggleAllBtn) {
+      toggleAllBtn.addEventListener('click', () => {
+        const shouldExpand = toggleAllBtn.getAttribute('aria-expanded') !== 'true';
+        solutionItems.forEach(item => {
+          if (!item.hidden) item.open = shouldExpand;
+        });
+        syncToggleAllState();
+      });
+    }
+
+    solutionsAccordion.addEventListener('toggle', (event) => {
+      if (event.target.matches('.solution-item')) {
+        syncToggleAllState();
+      }
+    }, { capture: true });
+
+    syncToggleAllState();
+  }
 
   // ── Animaciones de aparición en scroll ─────────────────────
   const fadeTargets = document.querySelectorAll(
@@ -422,6 +501,58 @@
   );
 
   fadeTargets.forEach(el => fadeObserver.observe(el));
+
+  // ── Animación de entrada para todas las etiquetas H2 ───────
+  if (window.matchMedia('(prefers-reduced-motion: no-preference)').matches) {
+    const h2Elements = document.querySelectorAll('h2');
+    h2Elements.forEach(h2 => h2.classList.add('h2-reveal'));
+
+    const h2Observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            h2Observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
+
+    h2Elements.forEach(h2 => h2Observer.observe(h2));
+  }
+
+  // ── Fallback de animación para badges y subtítulos ─────────
+  if (
+    !CSS.supports('(animation-timeline: view()) and (animation-range: entry)') &&
+    window.matchMedia('(prefers-reduced-motion: no-preference)').matches
+  ) {
+    const headingBlocks = document.querySelectorAll('.section-heading-block');
+    const headingParts = [];
+
+    headingBlocks.forEach(block => {
+      const parts = block.querySelectorAll('.section-badge, .fs-subtitle');
+      parts.forEach((part, idx) => {
+        part.classList.add('heading-reveal-init');
+        part.style.transitionDelay = (idx * 110) + 'ms';
+        headingParts.push(part);
+      });
+    });
+
+    const headingObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            headingObserver.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+
+    headingParts.forEach(el => headingObserver.observe(el));
+  }
 
   // ── Contact form ───────────────────────────────────────────
   const form = document.querySelector('.contact-form');
